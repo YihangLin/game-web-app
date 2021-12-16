@@ -1,0 +1,137 @@
+.home-desktop {
+  display: none;
+}
+
+.home-new-release-img {
+  /* height: ; */
+  position: relative;
+}
+
+.home-new-release-img img {
+  width: 100%;
+
+}
+
+
+
+/* .home-new-release-img {
+  width: 100%;
+  height: 30vh;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-end;
+} */
+
+.home-new-release-img button {
+  position: absolute;
+  right: 1rem;
+  bottom: 1rem;
+  /* margin: 0 1rem 1rem 0; */
+  padding: 0.5rem;
+  border-radius: 4px;
+  border: none;
+  background-color: var(--backgroundColor);
+  color: white;
+}
+
+@media screen and (min-width: 1025px) {
+  .home-container {
+    max-width: 80%;
+    /* margin: 1rem auto; */
+    /* color: white; */
+  }
+
+  .home-mobile {
+    display: none;
+  }
+
+  .home-desktop {
+    display: flex;
+    /* align-items: center; */
+    /* justify-content: space-between; */
+    background-color: var(--navDark);
+  }
+
+  .home-desktop p {
+    font-size: 0.75rem;
+  }
+
+  .main-img {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 70%;
+  }
+
+  .main-img img {
+    width: 100%;
+  }
+
+  .main-info {
+    padding: 0.5rem;
+    margin-left: 1rem;
+    width: 30%;
+    display: flex;
+    flex-direction: column;
+    /* align-items: center; */
+    justify-content: space-between;
+  }
+
+  .new-imgs {
+
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+/* 
+  .new-imgs img {
+    max-width: 40%;
+  } */
+
+  .new-imgs-two {
+    display: flex;
+  }
+
+  .new-imgs-two img {
+    max-width: 100%;
+  }
+
+  .new-imgs-one {
+    max-width: 50%;
+  }
+
+  .new-imgs-one img {
+    max-width: 99%;
+  }
+  
+  .right-img {
+    margin-left: 1%;
+  }
+
+
+
+  .desktop-discount {
+    background-color: green;
+    padding: 0.25rem;
+  }
+
+  .original-price {
+    text-decoration: line-through;
+    margin: 0 0.25rem;
+    /* font-size: 0.75rem; */
+  }
+  /* .larger-img {
+    max-width: 50%;
+  } */
+
+  /* .new-imgs img:nth-child(2) {
+    margin: 0 0.5rem;
+  } */
+
+  /* .new-imgs img {
+    max-width: 30%;
+  } */
+}
