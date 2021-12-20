@@ -41,7 +41,13 @@
   }
 }
 
-@media screen and (min-width: 1025px) {
+@media screen and (min-width: 1024px) {
+  .home-container {
+    max-width: 80%;
+    /* margin: 1rem auto; */
+    /* color: white; */
+  }
+
   .home-container ul {
     grid-template-columns: repeat(4, 1fr);
   }
@@ -51,7 +57,14 @@
   }
 
   .game-groups {
-    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+    /* grid-template-columns: 1fr 1fr; */
   }
 
+}
+
+@media screen and (min-width: 1440px) {
+  .home-container {
+    max-width: 60%;
+  }
 }

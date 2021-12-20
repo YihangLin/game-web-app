@@ -5,7 +5,7 @@ export default function RecentlyUpdated({ games }) {
   return (
     <div className='updated-games'>
       {games.map(game => (
-        <Link key={game.game_id} to='/'>
+        <Link key={game.game_id} to={`/detail/${game.game_id}`}>
           <div className='updated-game'>
             {/* <div> */}
               <img src={game.game_display_img} alt="game img" />

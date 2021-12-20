@@ -24,7 +24,8 @@
 .game-info span {
   display: block;
   font-size: 0.75rem;
-  color: var(--textColor);
+  /* color: var(--textColor); */
+  color: white;
 }
 
 .game-original-price {
