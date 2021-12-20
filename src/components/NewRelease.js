@@ -1,11 +1,12 @@
 import './NewRelease.css';
+import { Link } from 'react-router-dom';
 // import { useState } from 'react';
 
 export default function NewRelease({ game }) {
   // const [mainImg, setMainImg] = useState(game.game_display_img);
 
   return (
-    <div className='home-new-release'>
+    <Link to={`/detail/${game.game_id}`} className='home-new-release'>
     <p>NEW RELEASE</p>
     <div className='home-mobile'>
     {/* <div className='home-new-release-img' style={{backgroundImage: `url(${data.newGame.game_display_img})`}}> */}
@@ -51,6 +52,6 @@ export default function NewRelease({ game }) {
           <p>CDN$ {game.game_price / 100}</p>}
       </div>
     </div>
-  </div>
+  </Link>
   )
 }

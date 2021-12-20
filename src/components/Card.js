@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 export default function Card({ game }) {
   return (
-    <Link to='/' className='game-card'>
+    <Link to={`/detail/${game.game_id}`} className='game-card'>
       <img src={game.game_display_img} alt="game img" />
       {game.discount_percent === 0 ?
         <div className='game-info'>
