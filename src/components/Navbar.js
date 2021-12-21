@@ -32,13 +32,13 @@ export default function Navbar() {
         <div className='mobile-nav' onClick={() => setSidebar(false)}>
           <ul>
             {/* close sidebar afterclick */}
-            <li><Link to='/games'>All Games</Link></li>
+            <li><Link to='/games/allgames'>All Games</Link></li>
             <li className='hover-dropdown' onClick={() => setDropdown(prevValue => !prevValue)}><Link to='#'>Categories</Link>
             <div className={`${dropdown ? '' : 'mobile-dropdown'}`}>
               <Dropdown />
             </div>
             </li>
-            <li><Link to = '/'>On Sale</Link></li>
+            <li><Link to = '/games/sales'>On Sale</Link></li>
           </ul>
           {/* <Searchbar /> */}
         </div>
@@ -90,7 +90,7 @@ export default function Navbar() {
                 <li><Link to='/'><img src={Account} alt="account img" /></Link></li>
                 <li className='desktop-badge'>
                   <Link to='/'><img src={ShoppingBag} alt="shopping bag img" /></Link>
-                  <span>12</span>
+                  <span><Link to='/'>12</Link></span>
                 </li>
               </ul>
             </div>
@@ -101,13 +101,13 @@ export default function Navbar() {
           <div className='desktop-container'>
             <ul>
               <li><Link to='/'>Home</Link></li>
-              <li><Link to='/'>All Games</Link></li>
+              <li><Link to='/games/allgames'>All Games</Link></li>
               <li className='hover-dropdown'><Link to='#'>Categories<img src={Arrow} alt="arrow" /></Link>
               <div className={`${dropdown ? '' : 'mobile-dropdown'}`}>
                 <Dropdown />
               </div>
               </li>
-              <li><Link to='/'>Sale</Link></li>
+              <li><Link to='/games/sales'>On Sale</Link></li>
             </ul>
           </div>
         </div>
