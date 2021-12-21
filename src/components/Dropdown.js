@@ -1,60 +1,80 @@
 import './Dropdown.css'
 import { Link } from 'react-router-dom'
 
+const sports = ['Competitive', 'Racing', 'Driving', 'Soccer'];
+const simulation = ['Crafting', 'Survival', 'Farming', 'Agriculture'];
+const action = ['FPS', 'Difficult', 'Co-op', 'Open World'];
+const indie = ['Relaxing', 'Puzzle', '2D', 'Sandbox'];
+const strategy = ['Sci-fi', 'RTS', 'Multiplayer', 'War'];
+const adventure = ['Fantasy', 'Stealth', 'Exploration', 'Story Rich'];
+const rpg = ['JRPG', 'Atmospheric', 'Singleplayer', 'Anime'];
+const rougelike = ['Pixel Graphics', 'Magic', 'Roguelite', 'Bullet Hell'];
+
+
 export default function Dropdown() {
   return (
     <div className='dropdown'>
       <div className='dropdown-section'>
-        <Link className='tag' to='/'>Action1</Link>
+        <Link className='tag' to='/games/Action'>Action</Link>
         <ul>
-          <li><Link to='/'>Action</Link></li>
-          <li><Link to='/'>Role Playing</Link></li>
-          <li><Link to='/'>Strategy</Link></li>
-          <li><Link to='/'>4</Link></li>
+          {action && action.map(category => (
+            <li key={category}><Link to={`/games/${category}`}>{category}</Link></li>
+          ))}
         </ul>
       
-        <Link className='tag' to='/'>Action2</Link>
+        <Link className='tag' to='/games/Adventure'>Adventure</Link>
         <ul>
-          <li><Link to='/'>Simulation</Link></li>
-          <li><Link to='/'>Tower Defense</Link></li>
-          <li><Link to='/'>7</Link></li>
-          <li><Link to='/'>8</Link></li>
+          {adventure && adventure.map(category => (
+            <li key={category}><Link to={`/games/${category}`}>{category}</Link></li>
+          ))}
         </ul>
       </div>
 
       <div className='dropdown-section'>
-        <Link className='tag' to='/'>Action3</Link>
+        <Link className='tag' to='/games/RPG'>RPG</Link>
         <ul>
-          <li><Link to='/'>Rouge-Like</Link></li>
-          <li><Link to='/'>JRPG</Link></li>
-          <li><Link to='/'>11</Link></li>
-          <li><Link to='/'>12</Link></li>
+          {rpg && rpg.map(category => (
+            <li key={category}><Link to={`/games/${category}`}>{category}</Link></li>
+          ))}
         </ul>
       
-        <Link className='tag' to='/'>Action4</Link>
+        <Link className='tag' to='/games/Indie'>Indie</Link>
         <ul>
-          <li><Link to='/'>Adventure</Link></li>
-          <li><Link to='/'>Casual</Link></li>
-          <li><Link to='/'>15</Link></li>
-          <li><Link to='/'>16</Link></li>
+          {indie && indie.map(category => (
+            <li key={category}><Link to={`/games/${category}`}>{category}</Link></li>
+          ))}
         </ul>
       </div>
 
       <div className='dropdown-section'>
-        <Link className='tag' to='/'>Action3</Link>
+        <Link className='tag' to='/games/Simulation'>Simulation</Link>
         <ul>
-          <li><Link to='/'>Rouge-Like</Link></li>
-          <li><Link to='/'>JRPG</Link></li>
-          <li><Link to='/'>11</Link></li>
-          <li><Link to='/'>12</Link></li>
+          {simulation && simulation.map(category => (
+            <li key={category}><Link to={`/games/${category}`}>{category}</Link></li>
+          ))}
         </ul>
       
-        <Link className='tag' to='/'>Action4</Link>
+        <Link className='tag' to='/games/Strategy'>Strategy</Link>
         <ul>
-          <li><Link to='/'>Adventure</Link></li>
-          <li><Link to='/'>Casual</Link></li>
-          <li><Link to='/'>15</Link></li>
-          <li><Link to='/'>16</Link></li>
+          {strategy && strategy.map(category => (
+            <li key={category}><Link to={`/games/${category}`}>{category}</Link></li>
+          ))}
+        </ul>
+      </div>
+
+      <div className='dropdown-section'>
+        <Link className='tag' to='/games/Sports'>Sports</Link>
+        <ul>
+          {sports && sports.map(category => (
+            <li key={category}><Link to={`/games/${category}`}>{category}</Link></li>
+          ))}
+        </ul>
+      
+        <Link className='tag' to='/games/Rougelike'>Rougelike</Link>
+        <ul>
+          {rougelike && rougelike.map(category => (
+            <li key={category}><Link to={`/games/${category}`}>{category}</Link></li>
+          ))}
         </ul>
       </div>
     </div>

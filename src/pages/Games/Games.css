@@ -1,0 +1,30 @@
+.games-category {
+  color: white;
+  max-width: 96%;
+  margin: 3rem auto;
+}
+
+.games-category-games {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+  gap: 1rem;
+}
+
+@media screen and (min-width: 1024px) {
+  .games-category {
+    max-width: 80%;
+  }
+
+  .games-category-games {
+    grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+  }
+}
+
+@media screen and (min-width: 1440px) {
+  .games-category {
+    max-width: 60%;
+  }
+}
+/* .games-category h1 {
+  display: block;
+} */

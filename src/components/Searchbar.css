@@ -20,8 +20,9 @@
   background-color: white;
   /* outline: none; */
   width: 100%;
-  border-radius: 0.25rem;
+  border-radius: 5px 0 0 5px;
   padding: 0.25rem;
+  /* outline: none; */
 }
 
 .searchbar input::placeholder {
@@ -41,7 +42,7 @@
   justify-content: center;
   align-items: center;
   padding: 0.25rem;
-  border-radius: 0.25rem;
+  /* border-radius: 0; */
   cursor: pointer;
 }
 
