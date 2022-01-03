@@ -57,11 +57,11 @@ export default function Navbar() {
             <p>View Cart(6)</p>
           </Link>
           <div className='mobile-sidebar-login'>
-            <Link className='show-vertical' to='/' onClick={() => setSidebar(false)}>
+            <Link className='show-vertical' to='/login' onClick={() => setSidebar(false)}>
               <img src={Login} alt="login img" />
               <p>Login</p>
             </Link>
-            <Link className='show-vertical' to='/' onClick={() => setSidebar(false)}>
+            <Link className='show-vertical' to='/signup' onClick={() => setSidebar(false)}>
               <img src={Signup} alt="signup img" />
               <p>Signup</p>
             </Link>
@@ -87,7 +87,7 @@ export default function Navbar() {
 
               <ul className='desktop-account'>
                 <li><Link to='/'>Hi, Name</Link></li>
-                <li><Link to='/'><img src={Account} alt="account img" /></Link></li>
+                <li><Link to='/login'><img src={Account} alt="account img" /></Link></li>
                 <li className='desktop-badge'>
                   <Link to='/'><img src={ShoppingBag} alt="shopping bag img" /></Link>
                   <span><Link to='/'>12</Link></span>

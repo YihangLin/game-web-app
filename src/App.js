@@ -8,9 +8,16 @@ import Signup from './pages/Signup/Signup';
 import Cart from './pages/Cart/Cart';
 import Detail from './pages/Detail/Detail';
 import Games from './pages/Games/Games';
-import OrderHistory from './pages/OrderHistory/OrderHistory'
+import OrderHistory from './pages/OrderHistory/OrderHistory';
+import { useAuthContext } from './hooks/useAuthContext';
 
 function App() {
+  const { authIsReady, user } = useAuthContext();
+
+  console.log('Auth: ', authIsReady);
+  console.log('user: ', user);
+  // console.log('cart: ', cart);
+
   return (
     <div className="App">
       <BrowserRouter>
