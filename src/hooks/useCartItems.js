@@ -1,9 +1,12 @@
-import { useEffect, useState } from "react"
+import { useEffect, useState, useRef } from "react"
 
-export const useFetch = (url) => {
+export const useCartItems = (cart) => {
   const [isPending, setIsPending] = useState(false);
   const [data, setData] = useState(null);
   const [error, setError] = useState(null);
+
+  const cartRef = useRef(cart).current;
+  // console.log('CartRef: ', cartRef);
 
   useEffect(() => {
     const controller = new AbortController();
@@ -12,8 +15,15 @@ export const useFetch = (url) => {
       setIsPending(true);
 
       try {
-        const res = await fetch(url, { 
+        const res = await fetch('http://localhost:5000/cart', { 
+          method: 'POST',
           credentials: 'include',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            cart: cartRef
+          }),
           signal: controller.signal 
         });
         if (!res.ok) {
@@ -35,13 +45,19 @@ export const useFetch = (url) => {
       }
     }
 
-    fetchData();
+    console.log('cart hook fetched once');
+
+    if (cartRef && cartRef.length !== 0) {
+      fetchData();
+    } else {
+      setData(null);
+    }
 
     return () => {
       controller.abort();
     }
 
-  }, [url])
+  }, [cartRef])
 
   return { data, isPending, error };
 }

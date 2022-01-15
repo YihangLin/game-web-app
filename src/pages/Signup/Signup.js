@@ -1,6 +1,7 @@
 import './Signup.css';
 import { Link } from 'react-router-dom';
 import { useState } from 'react';
+import { useSignup } from '../../hooks/useSignup';
 
 export default function Signup() {
   const [name, setName] = useState('');
@@ -8,6 +9,7 @@ export default function Signup() {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [passwordError, setPasswordError] = useState(null);
+  const { isPending, error, signup } = useSignup();
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -15,6 +17,8 @@ export default function Signup() {
 
     if (password !== confirmPassword) {
       setPasswordError('Password and Confirm Password does not match.')
+    } else {
+      signup(email, password, name);
     }
 
     console.log('Name: ', name);
@@ -73,12 +77,14 @@ export default function Signup() {
           />
         </label>
 
-        <button>Sign Up</button>
+        {!isPending && <button>Sign Up</button>}
+        {isPending && <button disabled>Loading</button>}
         <Link to='/login'>
           <span>Already have an account?</span>
-          Login!
+          Login Here!
         </Link>
 
+      {error && <div className='error'>{error}</div>}
       {passwordError && <div className='error'>{passwordError}</div>}
       </form>
     </div>

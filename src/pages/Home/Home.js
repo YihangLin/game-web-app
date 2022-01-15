@@ -32,10 +32,10 @@ export default function Home() {
 
         <p>POPULAR TAGS</p>
         <ul>
-          <li><Link to='/'>Action</Link></li>
-          <li><Link to='/'>RPG</Link></li>
-          <li><Link to='/'>Adventure</Link></li>
-          <li><Link to='/'>FPS</Link></li>
+          <li><Link to='/games/Action'>Action</Link></li>
+          <li><Link to='/games/RPG'>RPG</Link></li>
+          <li><Link to='/games/Adventure'>Adventure</Link></li>
+          <li><Link to='/games/FPS'>FPS</Link></li>
         </ul>
 
         <p>RECENTLY UPDATED</p>

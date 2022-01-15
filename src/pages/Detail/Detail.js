@@ -4,21 +4,33 @@ import { useState, useEffect, useLayoutEffect, createRef } from 'react';
 import Loading from '../../components/Loading';
 import { useFetch } from '../../hooks/useFetch';
 import { useParams } from 'react-router';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { useAddRemoveCart } from '../../hooks/useAddRemoveCart';
+import { useAuthContext } from '../../hooks/useAuthContext';
 
 export default function Detail() {
+  // const gameid = Number(useParams().gameid);
   const { gameid } = useParams();
   const { data, error, isPending } = useFetch(`http://localhost:5000/games/${gameid}`);
   const [mainImg, setMainImg] = useState('');
   const [playVideo, setPlayVideo] = useState(true);
   const [descriptionLimit, setDescriptionLimit] = useState(true);
   const [requirmentsLimit, setRequirmentsLimit] = useState(true);
+  const { addToCart } = useAddRemoveCart();
+  const { cart } = useAuthContext();
   const descriptionRef = createRef();
   const requirmentsRef = createRef();
+  let navigate = useNavigate();
+
+  // console.log(cart);
+  // console.log(typeof(gameid));
+  // console.log(cart.includes(gameid));
 
   useEffect(() => {
+    // console.log('detail render time');
     if (data !== null) {
       setMainImg(data.game_img_link[0]);
+      // console.log(typeof(d));
     }
   }, [data])
 
@@ -72,7 +84,16 @@ export default function Detail() {
               // </div>
               }
             <div className='game-detail-small-img'>
-              <div className='game-detail-video' onClick={() => setPlayVideo(true)}>
+              <div onClick={() => setPlayVideo(true)} className='game-detail-video'>
+                <img src={PlayBtn} alt="video play" />
+              </div>
+              {data.game_img_link && data.game_img_link.map(gameimg => (
+                <div onClick={() => handleImg(gameimg)} key={gameimg}>
+                  <img src={gameimg} alt="game img" />
+                </div>
+              ))}
+
+              {/* <div className='game-detail-video' onClick={() => setPlayVideo(true)}>
                 <img className='filter-img' src={data.game_img_link[0]} alt="img for video" />
                 <span className='play-btn'>
                   <img src={PlayBtn} alt="play btn" />
@@ -82,7 +103,7 @@ export default function Detail() {
                 <div key={gameimg}>
                   <img onClick={() => handleImg(gameimg)} src={gameimg} alt="game img" />
                 </div>
-              ))}
+              ))} */}
              
             </div>
           </div>
@@ -110,8 +131,12 @@ export default function Detail() {
               <p>Buy {data.game_name}</p>
               {data.discount_percent === 0 ?
                 <div className='game-detail-price'>
-                  <span className='game-price-nodiscount'>CDN$ {data.game_price / 100}</span>
-                  <button className='game-detail-btn'>Add to Cart</button>
+                  <span className='game-price-nodiscount'>CDN {(data.game_price / 100).toLocaleString('en-CA', { style: 'currency', currency: 'CAD', minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span>
+                  {cart.includes(data.game_id) ?
+                    <button className='game-detail-btn' onClick={()=> navigate('/cart')}>In Cart</button>
+                    :
+                    <button className='game-detail-btn' onClick={()=> addToCart(data.game_id)}>Add to Cart</button>
+                  }
                 </div>
                 :
                 <div>
@@ -120,10 +145,14 @@ export default function Detail() {
                     <div className='game-detail-price'>
                     <span className='game-detail-discount-percent'>-{data.discount_percent}%</span>
                     <div className='game-detail-discount'>
-                      <div className='game-detail-orignal-price'>CDN$ {data.game_price / 100}</div>
-                      <div>CDN$ {(data.game_price * (100 - data.discount_percent) / 10000).toFixed(2)}</div>
+                      <div className='game-detail-orignal-price'>CDN {(data.game_price / 100).toLocaleString('en-CA', { style: 'currency', currency: 'CAD', minimumFractionDigits: 2, maximumFractionDigits: 2 })}</div>
+                      <div>CDN {(data.game_price * (100 - data.discount_percent) / 10000).toLocaleString('en-CA', { style: 'currency', currency: 'CAD', minimumFractionDigits: 2, maximumFractionDigits: 2 })}</div>
                     </div>
-                    <button className='game-detail-btn'>Add to Cart</button>
+                    {cart.includes(data.game_id) ?
+                      <button className='game-detail-btn' onClick={()=> navigate('/cart')}>In Cart</button>
+                      :
+                      <button className='game-detail-btn' onClick={()=> addToCart(data.game_id)}>Add to Cart</button>
+                    }
                     </div>
                   </div>
                 </div>

@@ -12,65 +12,94 @@ import { Link } from 'react-router-dom';
 import { useState } from 'react';
 import Searchbar from './Searchbar';
 import Dropdown from './Dropdown';
+import { useAuthContext } from '../hooks/useAuthContext';
+import { useLogout } from '../hooks/useLogout';
+// import { useCart } from '../hooks/useCart';
 
-export default function Navbar() {
-  const [sidebar, setSidebar] = useState(false);
+export default function Navbar({ sidebar, setSidebar }) {
+  // const [sidebar, setSidebar] = useState(false);
   const [dropdown, setDropdown] = useState(false);
+  const { cart, user } = useAuthContext();
+  const { isPending, logout } = useLogout();
+  // const { response } = useCart();
+  // const authCart = useRef(cart).current;
+  // const authUser = useRef(user).current
+  // const [cartNumber, setCartNumber] = useState(0);
+  // const [currentUser, setCurrentUser] = useState(null);
+  // console.log('dropdown: ', dropdown);
+
+  // useEffect(() => {
+  //   console.log('render~~');
+  //   setCartNumber(authCart.length);
+  //   setCurrentUser(authUser);
+  // }, [authUser, authCart])
 
   return (
     <>
       {/* mobile */}
       <div className="mobile-container">
-        <div className='mobile-topbar'>
+        <div className='mobile-topbar' onClick={() => setDropdown(false)}>
           <img onClick={() => setSidebar(prevValue => !prevValue)} src={Menu} alt="menu img" />
           <Link to='/' className='mobile-logo' onClick={() => setSidebar(false)}><img src={Logo} alt="logo img" /></Link>
-          <Link className='mobile-badge' to ='/' onClick={() => setSidebar(false)}>
+          <Link className='mobile-badge' to ='/cart' onClick={() => setSidebar(false)}>
             <img src={ShoppingBag} alt="shopping bag img" />
-            <span>6</span>
+           <span>{cart.length}</span>
           </Link>
         </div>
         <div className='mobile-nav' onClick={() => setSidebar(false)}>
           <ul>
             {/* close sidebar afterclick */}
-            <li><Link to='/games/allgames'>All Games</Link></li>
+            <li onClick={() => setDropdown(false)}><Link to='/games/allgames'>All Games</Link></li>
             <li className='hover-dropdown' onClick={() => setDropdown(prevValue => !prevValue)}><Link to='#'>Categories</Link>
             <div className={`${dropdown ? '' : 'mobile-dropdown'}`}>
               <Dropdown />
             </div>
             </li>
-            <li><Link to = '/games/sales'>On Sale</Link></li>
+            <li onClick={() => setDropdown(false)}><Link to = '/games/sales'>On Sale</Link></li>
           </ul>
           {/* <Searchbar /> */}
         </div>
       </div>
 
       {/* sidebar */}
-      <div className={`mobile-sidebar ${sidebar ? '' : 'mobile-sidebar-disable'}`}>
-        <Searchbar />
-        <div onClick={() => setSidebar(false)} className='show-vertical mobile-siderbar-user'>
-          <img src={Account} alt="account img" />
-          <p>Name</p>
+      <div className={`mobile-sidebar-container ${sidebar ? '' : 'mobile-sidebar-disable'}`}>
+        <div className={`mobile-sidebar ${sidebar ? '' : 'mobile-sidebar-disable'}`}>
+          <Searchbar />
+          <div onClick={() => setSidebar(false)} className='show-vertical mobile-sidebar-user'>
+            <img src={Account} alt="account img" />
+            {user ? <p>Hi, {user.user_name}</p> : <p>Guest</p>}
+          </div>
+          {/* <div className='show-vertical mobile-sidebar-account'> */}
+            <Link to='/cart' onClick={() => setSidebar(false)} className='show-vertical mobile-sidebar-bag'>
+              <img src={ShoppingBag} alt="shopping bag img" />
+              <p>View Cart({cart.length})</p>
+            </Link>
+            {user ?
+                isPending ? 
+                  <div className='show-vertical mobile-sidebar-logout'>
+                    <img src={Logout} alt="logout img" />
+                    <p>Loading</p>
+                  </div>
+                :
+                  <div className='show-vertical mobile-sidebar-logout' onClick={() => logout()}>
+                    <img src={Logout} alt="logout img" />
+                    <p>Logout</p>
+                  </div>
+            :
+              <div className='mobile-sidebar-login'>
+                <Link className='show-vertical' to='/login' onClick={() => setSidebar(false)}>
+                  <img src={Login} alt="login img" />
+                  <p>Login</p>
+                </Link>
+                <Link className='show-vertical' to='/signup' onClick={() => setSidebar(false)}>
+                  <img src={Signup} alt="signup img" />
+                  <p>Signup</p>
+                </Link>
+              </div>
+            }
+          {/* </div> */}
         </div>
-        {/* <div className='show-vertical mobile-sidebar-account'> */}
-          <Link to='/' onClick={() => setSidebar(false)} className='show-vertical mobile-siderbar-bag'>
-            <img src={ShoppingBag} alt="shopping bag img" />
-            <p>View Cart(6)</p>
-          </Link>
-          <div className='mobile-sidebar-login'>
-            <Link className='show-vertical' to='/login' onClick={() => setSidebar(false)}>
-              <img src={Login} alt="login img" />
-              <p>Login</p>
-            </Link>
-            <Link className='show-vertical' to='/signup' onClick={() => setSidebar(false)}>
-              <img src={Signup} alt="signup img" />
-              <p>Signup</p>
-            </Link>
-          </div>
-          <div className='show-vertical mobile-sidebar-logout' onClick={() => setSidebar(false)}>
-            <img src={Logout} alt="logout img" />
-            <p>Logout</p>
-          </div>
-        {/* </div> */}
+        <div className='mobile-sidebar-close' onClick={() => setSidebar(false)}></div>
       </div>
       
 
@@ -86,11 +115,33 @@ export default function Navbar() {
               <Link to='/'><img src={Logo} alt="logo img" /></Link>
 
               <ul className='desktop-account'>
-                <li><Link to='/'>Hi, Name</Link></li>
-                <li><Link to='/login'><img src={Account} alt="account img" /></Link></li>
+                <li>{user ? <span className='desktop-username'>Hi, {user.user_name}</span> : <Link to='/login'>Hi, Guest</Link>}</li>
+                <li>{user ? 
+                      <div className='desktop-account-forhover'><img src={Account} alt="account img" />
+                        <div className='desktop-account-hover'>
+                          <a href='/orders'>View Orders</a>
+                          {isPending ?
+                            <div className='desktop-logout'>
+                              <img src={Logout} alt="logout img" />
+                              <span>Loading</span>
+                            </div>
+                          :
+                            <div className='desktop-logout' onClick={()=> logout()}>
+                              <img src={Logout} alt="logout img" />
+                              <span>Logout</span>
+                            </div>
+                          }
+                        </div>
+                      </div>
+                    :
+                      <Link to='/login'><img src={Account} alt="account img" /></Link>
+                    }
+                </li>
                 <li className='desktop-badge'>
-                  <Link to='/'><img src={ShoppingBag} alt="shopping bag img" /></Link>
-                  <span><Link to='/'>12</Link></span>
+                  <Link to='/cart'><img src={ShoppingBag} alt="shopping bag img" />
+                  {/* <span>1</span> */}
+                  <span>{cart.length}</span>
+                  </Link>
                 </li>
               </ul>
             </div>
@@ -102,7 +153,7 @@ export default function Navbar() {
             <ul>
               <li><Link to='/'>Home</Link></li>
               <li><Link to='/games/allgames'>All Games</Link></li>
-              <li className='hover-dropdown'><Link to='#'>Categories<img src={Arrow} alt="arrow" /></Link>
+              <li onClick={() => setDropdown(prevValue => !prevValue)} className='hover-dropdown'><Link to='#'>Categories<img src={Arrow} alt="arrow" /></Link>
               <div className={`${dropdown ? '' : 'mobile-dropdown'}`}>
                 <Dropdown />
               </div>

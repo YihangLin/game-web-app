@@ -45,11 +45,11 @@ export default function NewRelease({ game }) {
         {game.discount_percent !== 0 ? 
           <p>
             <span className='desktop-discount'>-{game.discount_percent}%</span>
-            <span className='original-price'>CDN$ {game.game_price / 100}</span>
-            CDN$ {(game.game_price * (100 - game.discount_percent) / 10000).toFixed(2)}
+            <span className='original-price'>CDN {(game.game_price / 100).toLocaleString('en-CA', { style: 'currency', currency: 'CAD', minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span>
+            CDN {(game.game_price * (100 - game.discount_percent) / 10000).toLocaleString('en-CA', { style: 'currency', currency: 'CAD', minimumFractionDigits: 2, maximumFractionDigits: 2 })}
           </p> 
           : 
-          <p>CDN$ {game.game_price / 100}</p>}
+          <p>CDN {(game.game_price / 100).toLocaleString('en-CA', { style: 'currency', currency: 'CAD', minimumFractionDigits: 2, maximumFractionDigits: 2 })}</p>}
       </div>
     </div>
   </Link>

@@ -53,6 +53,7 @@
   display: grid;
   grid-template-columns: 1fr;
   gap: 1rem;
+  /* height: 100%; */
   /* min-width: 0; */
   /* overflow: auto; */
   /* overflow: hidden; */
@@ -64,6 +65,8 @@
 
 .updated-games a {
  min-width: 0;
+ background-color: var(--backgroundCard);
+ /* height: 100%; */
 }
 
 .updated-game {
@@ -98,7 +101,7 @@
   /* flex-basis: 50%; */
   /* width: 90%; */
   /* padding: ; */
-  background-color: var(--backgroundCard);
+  
 
   /* overflow: hidden; */
   
@@ -163,6 +166,15 @@
   font-size: .75rem;
 }
 
+.updated-game-category {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.updated-game-category span {
+  margin-bottom: .25rem;
+}
+
 @media screen and (min-width: 768px) {
 
   /* .updated-games a { */
@@ -195,7 +207,7 @@
     /* padding:; */
     /* margin-left: 2rem; */
     /* width: 50%; */
-    flex: 1 1 50%;
+    /* flex: 1 1 100%; */
     /* flex-basis: 50%; */
     min-width: 0;
     display: flex;
@@ -211,17 +223,11 @@
     max-width: 100%;
   }  */
 
-  .updated-game-category {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-  }
-
-  .updated-game-category span{
-    margin-bottom: .25rem;
-    /* display: block; */
-    /* display: inline-block; */
-  }
+  /* .updated-game-category { */
+    /* display: flex; */
+    /* flex-direction: column; */
+    /* align-items: flex-start; */
+  /* } */
 
 /* .updated-game-info { */
   /* background-color: var(--backgroundColor); */
@@ -253,10 +259,21 @@
 
 @media screen and (min-width: 1024px) {
   .updated-games {
-    display: grid;
+    /* display: grid; */
     grid-template-columns: 1fr 1fr;
-    gap: 1rem;
+    align-items: stretch;
+    /* grid-auto-rows: 1fr; */
+    /* display: flex; */
+    /* gap: 1rem; */
   }
+
+  /* .updated-games a {
+    flex: 1 1 100%;
+  } */
+
+  /* .updated-games a {
+    height: 100%;
+  } */
 
   .updated-game {
     /* width: 30%; */
@@ -270,25 +287,29 @@
     /* max-width: 100%; */
   }
 
-  .updated-game-info {
+
+
+  /* .updated-game-info { */
     /* padding:; */
     /* margin-left: 2rem; */
     /* width: 50%; */
     /* flex: 1 1 50%; */
     /* flex-basis: 50%; */
     /* min-width: 0; */
-    display: block;
+    /* display: block; */
     /* flex-direction: column; */
     /* align-items: flex-start; */
     /* justify-content: space-between; */
     /* width: 50%; */
     /* width: 20%; */
 
-  }
+  /* } */
 
   .updated-game-category {
-    display: block;
-    /* flex-direction: column; */
+    /* display: block; */
+    /* display: flex; */
+    /* flex-wrap: wrap; */
+    flex-direction: row;
     /* align-items: flex-start; */
   }
 }
