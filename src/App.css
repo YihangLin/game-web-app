@@ -1,5 +1,19 @@
 .App {
   background-color: var(--backgroundColor);
   min-height: 100vh;
+  /* height: 100vh; */
+  /* overflow: hidden; */
   /* max-height: 90%; */
+}
+
+.disable-scroll {
+  height: 100vh;
+  overflow: hidden;
+}
+
+@media screen and (min-width: 1025px) {
+  .disable-scroll {
+    height: auto;
+    overflow: visible;
+  }
 }

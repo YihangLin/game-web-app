@@ -1,13 +1,17 @@
 import './Login.css';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { useLogin } from '../../hooks/useLogin';
 
 export default function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const { isPending, error, login } = useLogin();
 
   const handleSubmit = (e) => {
     e.preventDefault();
+
+    login(email, password);
 
     console.log('Email: ', email);
     console.log('Password: ', password);
@@ -35,11 +39,14 @@ export default function Login() {
             value={password}
           />
         </label>
-        <button>Login</button>
+        {!isPending && <button>Login</button>}
+        {isPending && <button disabled>Loading</button>}
         <Link to='/signup'>
           <span>Don't have an account?</span>
-          Sign Up!
+          Sign Up Here!
         </Link>
+
+        {error && <div className='error'>{error}</div>}
       </form>
     </div>
   )

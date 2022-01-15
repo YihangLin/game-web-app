@@ -7,7 +7,9 @@
   --backgroundColor: #1d2d4b;
   --backgroundDropdown: #2D3E4C;
   --backgroundCard: #2884ac;
-
+  --linearColorLightBlue: #06BFFF;
+  --linearColorDarkBlue: #2D73FF;
+  --navHover: #343744;
 }
 
 * {

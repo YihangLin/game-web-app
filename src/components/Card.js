@@ -8,7 +8,7 @@ export default function Card({ game }) {
       {game.discount_percent === 0 ?
         <div className='game-info'>
           <div className='game-info-name game-name-limit'>{game.game_name}</div>
-          <div className='game-info-price'>CDN$ {game.game_price / 100}</div>
+          <div className='game-info-price'>CDN {(game.game_price / 100).toLocaleString('en-CA', { style: 'currency', currency: 'CAD', minimumFractionDigits: 2, maximumFractionDigits: 2 })}</div>
         </div>
         :
         <div className='game-info'>
@@ -21,8 +21,8 @@ export default function Card({ game }) {
           <div className='game-price-with-discount'>
             <div className='game-info-discount'>-{game.discount_percent}%</div>
             <div className='game-info-price'>
-              <span className='game-original-price'>CDN$ {game.game_price / 100}</span>
-              <div>CDN$ {(game.game_price * (100 - game.discount_percent) / 10000).toFixed(2)}</div>
+              <span className='game-original-price'>CDN {(game.game_price / 100).toLocaleString('en-CA', { style: 'currency', currency: 'CAD', minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span>
+              <div>CDN {(game.game_price * (100 - game.discount_percent) / 10000).toLocaleString('en-CA', { style: 'currency', currency: 'CAD', minimumFractionDigits: 2, maximumFractionDigits: 2 })}</div>
             </div>
           </div>
         </div>

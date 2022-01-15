@@ -3,6 +3,7 @@
   /* justify-content: flex-start; */
   /* align-items: center; */
   /* width: 60%; */
+  gap: .25rem;
 }
 
 /* .searchbar label {
@@ -20,7 +21,8 @@
   background-color: white;
   /* outline: none; */
   width: 100%;
-  border-radius: 5px 0 0 5px;
+  border-radius: 5px;
+  /* border-radius: 5px 0 0 5px; */
   padding: 0.25rem;
   /* outline: none; */
 }
