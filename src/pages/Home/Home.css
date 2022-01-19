@@ -2,7 +2,6 @@
   max-width: 96%;
   margin: 1rem auto;
   color: white;
-  /* overflow-y: hidden; */
 }
 
 .home-container p {
@@ -19,7 +18,6 @@
   font-weight: 400;
   background: linear-gradient(90deg, var(--linearColorLightBlue) 0%, var(--linearColorDarkBlue) 100%);
   height: 3rem;
-
 }
 
 .home-container ul li a {
@@ -45,8 +43,6 @@
 @media screen and (min-width: 1024px) {
   .home-container {
     max-width: 80%;
-    /* margin: 1rem auto; */
-    /* color: white; */
   }
 
   .home-container ul {
@@ -59,9 +55,7 @@
 
   .game-groups {
     grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
-    /* grid-template-columns: 1fr 1fr; */
   }
-
 }
 
 @media screen and (min-width: 1440px) {

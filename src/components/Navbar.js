@@ -7,32 +7,18 @@ import Login from '../assets/login.svg';
 import Logout from '../assets/logout.svg';
 import Signup from '../assets/signup.svg';
 import Arrow from '../assets/arrow-down.svg';
+import Searchbar from './Searchbar';
+import Dropdown from './Dropdown';
 
 import { Link } from 'react-router-dom';
 import { useState } from 'react';
-import Searchbar from './Searchbar';
-import Dropdown from './Dropdown';
 import { useAuthContext } from '../hooks/useAuthContext';
 import { useLogout } from '../hooks/useLogout';
-// import { useCart } from '../hooks/useCart';
 
 export default function Navbar({ sidebar, setSidebar }) {
-  // const [sidebar, setSidebar] = useState(false);
   const [dropdown, setDropdown] = useState(false);
   const { cart, user } = useAuthContext();
   const { isPending, logout } = useLogout();
-  // const { response } = useCart();
-  // const authCart = useRef(cart).current;
-  // const authUser = useRef(user).current
-  // const [cartNumber, setCartNumber] = useState(0);
-  // const [currentUser, setCurrentUser] = useState(null);
-  // console.log('dropdown: ', dropdown);
-
-  // useEffect(() => {
-  //   console.log('render~~');
-  //   setCartNumber(authCart.length);
-  //   setCurrentUser(authUser);
-  // }, [authUser, authCart])
 
   return (
     <>
@@ -57,34 +43,32 @@ export default function Navbar({ sidebar, setSidebar }) {
             </li>
             <li onClick={() => setDropdown(false)}><Link to = '/games/sales'>On Sale</Link></li>
           </ul>
-          {/* <Searchbar /> */}
         </div>
       </div>
 
       {/* sidebar */}
       <div className={`mobile-sidebar-container ${sidebar ? '' : 'mobile-sidebar-disable'}`}>
         <div className={`mobile-sidebar ${sidebar ? '' : 'mobile-sidebar-disable'}`}>
-          <Searchbar />
-          <div onClick={() => setSidebar(false)} className='show-vertical mobile-sidebar-user'>
+          <Searchbar setSidebar={setSidebar} />
+          <Link to='/orders' onClick={() => setSidebar(false)} className='show-vertical mobile-sidebar-user'>
             <img src={Account} alt="account img" />
             {user ? <p>Hi, {user.user_name}</p> : <p>Guest</p>}
-          </div>
-          {/* <div className='show-vertical mobile-sidebar-account'> */}
+          </Link>
             <Link to='/cart' onClick={() => setSidebar(false)} className='show-vertical mobile-sidebar-bag'>
               <img src={ShoppingBag} alt="shopping bag img" />
               <p>View Cart({cart.length})</p>
             </Link>
             {user ?
-                isPending ? 
-                  <div className='show-vertical mobile-sidebar-logout'>
-                    <img src={Logout} alt="logout img" />
-                    <p>Loading</p>
-                  </div>
-                :
-                  <div className='show-vertical mobile-sidebar-logout' onClick={() => logout()}>
-                    <img src={Logout} alt="logout img" />
-                    <p>Logout</p>
-                  </div>
+              isPending ? 
+                <div className='show-vertical mobile-sidebar-logout'>
+                  <img src={Logout} alt="logout img" />
+                  <p>Loading</p>
+                </div>
+              :
+                <div className='show-vertical mobile-sidebar-logout' onClick={() => logout()}>
+                  <img src={Logout} alt="logout img" />
+                  <p>Logout</p>
+                </div>
             :
               <div className='mobile-sidebar-login'>
                 <Link className='show-vertical' to='/login' onClick={() => setSidebar(false)}>
@@ -97,7 +81,6 @@ export default function Navbar({ sidebar, setSidebar }) {
                 </Link>
               </div>
             }
-          {/* </div> */}
         </div>
         <div className='mobile-sidebar-close' onClick={() => setSidebar(false)}></div>
       </div>
@@ -109,30 +92,31 @@ export default function Navbar({ sidebar, setSidebar }) {
           <div className='desktop-container'>
             <div className="desktop-topbar">
               <div className='desktop-search'>
-                <Searchbar />
+                <Searchbar setSidebar={setSidebar} />
               </div>
 
               <Link to='/'><img src={Logo} alt="logo img" /></Link>
 
               <ul className='desktop-account'>
                 <li>{user ? <span className='desktop-username'>Hi, {user.user_name}</span> : <Link to='/login'>Hi, Guest</Link>}</li>
-                <li>{user ? 
-                      <div className='desktop-account-forhover'><img src={Account} alt="account img" />
-                        <div className='desktop-account-hover'>
-                          <a href='/orders'>View Orders</a>
-                          {isPending ?
-                            <div className='desktop-logout'>
-                              <img src={Logout} alt="logout img" />
-                              <span>Loading</span>
-                            </div>
-                          :
-                            <div className='desktop-logout' onClick={()=> logout()}>
-                              <img src={Logout} alt="logout img" />
-                              <span>Logout</span>
-                            </div>
-                          }
-                        </div>
+                <li>
+                  {user ? 
+                    <div className='desktop-account-forhover'><img src={Account} alt="account img" />
+                      <div className='desktop-account-hover'>
+                        <a href='/orders'>View Orders</a>
+                        {isPending ?
+                          <div className='desktop-logout'>
+                            <img src={Logout} alt="logout img" />
+                            <span>Loading</span>
+                          </div>
+                        :
+                          <div className='desktop-logout' onClick={()=> logout()}>
+                            <img src={Logout} alt="logout img" />
+                            <span>Logout</span>
+                          </div>
+                        }
                       </div>
+                    </div>
                     :
                       <Link to='/login'><img src={Account} alt="account img" /></Link>
                     }
@@ -162,14 +146,7 @@ export default function Navbar({ sidebar, setSidebar }) {
             </ul>
           </div>
         </div>
-
-
-        
       </nav>
-
-      
-
-
     </>
   )
 }

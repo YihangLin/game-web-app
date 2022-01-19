@@ -1,3 +1,122 @@
-.cart {
+.cart-container {
   color: white;
+  max-width: 96%;
+  margin: 3rem auto 0;
+  min-height: 86vh;
+}
+
+.cart-container span {
+  display: block;
+  font-size: .75rem;
+  text-align: right;
+  text-decoration: line-through;
+  color: var(--textColor);
+}
+
+.cart-each-game {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: .25rem;
+  background-color: var(--cartItemBackgroundColor);
+  padding: .25rem;
+}
+
+.cart-each-game p {
+  font-size: .875rem;
+}
+
+.cart-game-info-container {
+  display: flex;
+  gap: 1rem;
+}
+
+.cart-img-container {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  width: 120px;
+}
+
+.cart-img-container img {
+  width: 100%;
+}
+
+.cart-game-price {
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.cart-game-price p {
+  text-align: right;
+}
+
+.cart-remove {
+  text-decoration: underline;
+  cursor: pointer;
+  color: var(--textColor);
+}
+
+.cart-checkout-container {
+  background-color: var(--cartItemBackgroundColor);
+  padding: 1.5rem .25rem;
+}
+
+.cart-total {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+}
+
+.cart-continue-btn {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.cart-continue-btn a, button {
+  font-size: 1rem;
+  background-color: green;
+  border: 1px solid green;
+  border-radius: 5px;
+  color: white;
+  padding: .25em 1em;
+  cursor: pointer;
+}
+
+.cart-shopping {
+  display: inline-block;
+  background-color: var(--navBlue);
+  padding: .25em 1em;
+  border-radius: 5px;
+  margin-top: 3rem;
+}
+
+@media screen and (min-width: 768px) {
+  .cart-each-game {
+    padding: .5rem 1rem;
+  }
+
+  .cart-checkout-container {
+    padding: 1.5rem 1rem;
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  .cart-container {
+    max-width: 80%;
+  }
+}
+
+@media screen and (min-width: 1440px) {
+  .cart-container {
+    max-width: 60%;
+  }
+}
+
+@media screen and (min-width: 1900px) {
+  .cart-container {
+    max-width: 40%;
+  }
 }

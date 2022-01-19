@@ -6,7 +6,6 @@ export const useCartItems = (cart) => {
   const [error, setError] = useState(null);
 
   const cartRef = useRef(cart).current;
-  // console.log('CartRef: ', cartRef);
 
   useEffect(() => {
     const controller = new AbortController();
@@ -15,7 +14,7 @@ export const useCartItems = (cart) => {
       setIsPending(true);
 
       try {
-        const res = await fetch('http://localhost:5000/cart', { 
+        const res = await fetch(`${process.env.REACT_APP_SERVER_URL}/cart`, { 
           method: 'POST',
           credentials: 'include',
           headers: {
@@ -44,8 +43,6 @@ export const useCartItems = (cart) => {
         }
       }
     }
-
-    console.log('cart hook fetched once');
 
     if (cartRef && cartRef.length !== 0) {
       fetchData();

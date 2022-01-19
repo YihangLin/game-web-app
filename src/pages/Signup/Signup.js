@@ -1,4 +1,5 @@
-import './Signup.css';
+import '../Login/Login.css';
+
 import { Link } from 'react-router-dom';
 import { useState } from 'react';
 import { useSignup } from '../../hooks/useSignup';
@@ -20,11 +21,6 @@ export default function Signup() {
     } else {
       signup(email, password, name);
     }
-
-    console.log('Name: ', name);
-    console.log('Email: ', email);
-    console.log('Password: ', password);
-    console.log('Confirm Password: ', confirmPassword);
   }
 
   return (

@@ -3,7 +3,6 @@ import { useAuthContext } from './useAuthContext';
 import { useNavigate } from 'react-router';
 
 export const useSignup = () => {
-  // const [data, setData] = useState(null);
   const [isCancelled, setIsCancelled] = useState(false);
   const [error, setError] = useState(null);
   const [isPending, setIsPending] = useState(false);
@@ -16,7 +15,6 @@ export const useSignup = () => {
   const signup = async (email, password, name) => {
     setError(null);
     setIsPending(true);
-    // dispatch({ type: 'IS_PENDING' });
 
     try {
       const user = {
@@ -25,7 +23,7 @@ export const useSignup = () => {
         name,
         cart
       }
-      const res = await fetch('http://localhost:5000/signup', {
+      const res = await fetch(`${process.env.REACT_APP_SERVER_URL}/signup`, {
         method: 'POST',
         credentials: 'include',
         headers: {
@@ -47,8 +45,6 @@ export const useSignup = () => {
       }
 
       const data = await res.json();
-
-      // console.log('fetched data: ', data);
 
       dispatch({ type: 'SIGN_UP', payload: data });
       localStorage.clear();

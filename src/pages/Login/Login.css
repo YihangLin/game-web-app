@@ -29,7 +29,6 @@
 
 .form-section button {
   display: block;
-  /* margin-bottom: 1rem; */
   background: linear-gradient(90deg, #06BFFF 0%, #2D73FF 100%);
   width: 60%;
   margin: 0 auto;
@@ -45,6 +44,4 @@
   margin-top: 1rem;
   display: block;
   text-align: center;
-  /* text-decoration: underline; */
-  /* font-size: .75rem; */
 }
