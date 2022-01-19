@@ -1,6 +1,5 @@
 import { createContext, useReducer, useEffect } from "react";
 import { useFetch } from "../hooks/useFetch";
-// import { useCart } from "../hooks/useCart";
 
 export const AuthContext = createContext();
 
@@ -26,7 +25,7 @@ export const authReducer = (state, action) => {
 }
 
 export const AuthContextProvider = ({ children }) => {
-  const { data, error } = useFetch('http://localhost:5000/user');
+  const { data, error } = useFetch(`${process.env.REACT_APP_SERVER_URL}/user`);
   const [state, dispatch] = useReducer(authReducer, {
     user: null,
     cart: [],
@@ -34,19 +33,11 @@ export const AuthContextProvider = ({ children }) => {
     isPending: false,
     authIsReady: false
   });
-  // const { initialCart } = useCart();
-  // const initialCartCallback = useCallback((items) => {
-  //   initialCart(items);
-  // })
-
 
   useEffect(() => {
     dispatch({ type: 'IS_PENDING' });
 
-    // localStorage.setItem('cart', JSON.stringify([1, 2, 3, 24]));
-
     if (data && !error) {
-      // console.log('initial data:', data);
       if (!data.user) {
         const localItems = JSON.parse(localStorage.getItem('cart'));
 
@@ -70,13 +61,8 @@ export const AuthContextProvider = ({ children }) => {
         dispatch({ type: 'ERROR', payload: error });
       }
     }
-
     
   }, [data, error])
-
-
-
-  console.log('State: ', state);
 
   return (
     <AuthContext.Provider value={{ ...state, dispatch }}>

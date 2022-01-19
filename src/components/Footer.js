@@ -7,7 +7,7 @@ export default function Footer() {
   return (
     <div className='footer'>
       <div className='footer-container'>
-        <img src={Logo} alt="logo img" />
+        <Link to='/'><img src={Logo} alt="logo img" /></Link>
         <div>
           <ul>
             <li><Link to='/'>Home</Link></li>

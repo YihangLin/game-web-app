@@ -7,15 +7,12 @@ nav {
   width: 100%;
   background-color: var(--navDark);
   position: relative;
-  /* max-width: 90%; */
-  /* margin: 0 auto; */
 }
 
 .mobile-topbar {
   max-width: 90%;
   margin: 0 auto;
   height: 8vh;
-  /* background-color: var(--navDark); */
   display: flex;
   align-items: center;
   box-shadow: 0 0 7px 0 rgb(0 0 0 / 75%);
@@ -23,13 +20,11 @@ nav {
 
 
 .mobile-topbar img {
-  /* margin-left: 0.5rem; */
   width: 2rem;
 }
 
 .mobile-topbar .mobile-logo {
   margin: 0 auto;
-  /* width: 3rem; */
 }
 
 .mobile-topbar .mobile-logo img {
@@ -40,9 +35,7 @@ nav {
 .mobile-nav {
   height: 6vh;
   background-color:var(--navBlue);
-  /* color: var(--textColor); */
   color: white;
-  /* font-size: var(--smallSize); */
 }
 
 .mobile-nav ul{
@@ -72,24 +65,17 @@ nav {
   z-index: 2;
   width: 100%;
   background:rgb(0 0 0 / 75%);
-  /* background-color: red; */
 }
 
 .mobile-sidebar {
-  /* position: absolute; */
   background-color: var(--navDark);
-  /* min-height: 100%; */
   display: flex;
   flex-direction: column;
   align-items: center;
-  /* color: var(--textColor); */
   color: white;
   min-width: 195px;
   max-width: 25%;
-  /* width: 60%; */
   padding-top: 1rem;
-  /* transition: all ease-in-out 0.2s;
-  z-index: 2; */
 }
 
 .mobile-sidebar-close {
@@ -100,7 +86,6 @@ nav {
 }
 
 .mobile-sidebar-disable {
-  /* overflow-y: hidden; */
   transform: translateX(-100%);
   transition: all ease-in-out 0.2s;
 }
@@ -116,10 +101,6 @@ nav {
   padding: 0.5rem 0;
   width: 100%;
   border-bottom: 1px solid var(--textColor);
-  /* display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center; */
 }
 
 .mobile-sidebar img {
@@ -132,9 +113,6 @@ nav {
   display: flex;
   align-items: center;
   justify-content: space-around;
-  /* border-bottom: 1px solid var(--backgroundBlueText); */
-
-  /* height: 100%; */
 }
 
 .mobile-sidebar-login a{
@@ -150,9 +128,6 @@ nav {
   padding: 0.5rem 0;
   width: 100%;
   border-bottom: 1px solid var(--textColor);
-  /* padding-top: 0.5re; */
-  /* margin-top: 0.5rem; */
-  /* border-top: 1px solid var(--backgroundDark); */
 }
 
 .mobile-badge {
@@ -160,7 +135,6 @@ nav {
 }
 
 .mobile-badge span {
-  /* color: var(--textColor); */
   color: white;
   font-size: 0.75rem;
   position: absolute;
@@ -176,9 +150,6 @@ nav {
   right: -6px;
 }
 
-
-
-
 @media screen and (min-width: 1025px) {
   .mobile-container {
     display: none;
@@ -193,10 +164,8 @@ nav {
     
   }
 
-
   .desktop-nav1 {
     height: 8vh;
-    /* color: var(--backgroundColor); */
     background-color: var(--navDark);
     position: relative;
   }
@@ -214,15 +183,9 @@ nav {
   .desktop-topbar {
     position: relative;
     height: 100%;
-    /* width: 100%; */
     display: flex;
     justify-content: center;
     align-items: center;
-    /* align-items: center;
-    margin: 0 auto;
-    /* display: flex;
-    align-items: center;
-    justify-content: center; */
   }
 
   .desktop-topbar a {
@@ -237,13 +200,9 @@ nav {
   }
 
   .desktop-account {
-    /* height: 100%; */
     color: white;
     display: flex;
     align-items: center;
-    /* justify-content: flex-end; */
-    /* text-align: right; */
-    /* float: right; */
     position: absolute;
     right: 0;
   }
@@ -251,14 +210,8 @@ nav {
   .desktop-username {
     padding: 1rem;
   }
-  /* .desktop-account li {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  } */
-
+  
   .desktop-account a {
-    /* height: 100%; */
     padding: 1rem;
   }
 
@@ -268,7 +221,6 @@ nav {
     justify-content: center;
     align-items: center;
     padding: 1rem;
-    /* display: ; */
   }
 
   .desktop-account-hover {
@@ -278,7 +230,6 @@ nav {
     width: 200%;
     background-color: var(--navDark);
     display: none;
-    /* border: 1px solid white; */
   }
 
   .desktop-logout {
@@ -288,24 +239,19 @@ nav {
     padding: 1rem;
     border-top: 1px solid white;
     cursor: pointer;
-    /* text-align: center; */
   }
 
   .desktop-account-forhover:hover .desktop-account-hover {
     display: block;
     z-index: 2;
-    /* background-color: white; */
-    /* color: black; */
   }
 
   .desktop-account-hover a:hover {
     background-color: var(--navHover);
-    /* background-color: rgb(49, 47, 47); */
   }
 
   .desktop-logout:hover {
     background-color: var(--navHover);
-    
   }
 
   .desktop-account img {
@@ -322,7 +268,6 @@ nav {
     display: flex;
     align-items: center;
     justify-content: center;
-    /* position: relative; */
   }
 
 
@@ -331,7 +276,6 @@ nav {
   }
 
   .desktop-nav2 li a {
-    /* color: var(--textColor); */
     color: white;
     height: 100%;
     display: flex;
@@ -358,15 +302,6 @@ nav {
     right: 10px;
     font-size: 0.75rem;
   }
-
-  /* .desktop-nav2 li a:hover {
-    background-color: var(--backgroundColor);
-  }
-
-  .hover-dropdown:hover .dropdown {
-    display: flex;
-  } */
-
 }
 
 @media (hover: none) {
@@ -378,16 +313,6 @@ nav {
 
 
 @media (hover: hover) {
-
-  /* nav {
-    display: block;
-    
-  }
-
-  .mobile-container {
-    display: none;
-  } */
-
   .desktop-nav2 li a:hover {
     background-color: var(--backgroundColor);
   }

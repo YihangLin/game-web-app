@@ -1,5 +1,4 @@
 import './Dropdown.css'
-// import { Link } from 'react-router-dom'
 
 const sports = ['Competitive', 'Racing', 'Driving', 'Soccer'];
 const simulation = ['Crafting', 'Survival', 'Farming', 'Agriculture'];

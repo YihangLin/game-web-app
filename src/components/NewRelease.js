@@ -1,15 +1,12 @@
 import './NewRelease.css';
 import { Link } from 'react-router-dom';
-// import { useState } from 'react';
 
 export default function NewRelease({ game }) {
-  // const [mainImg, setMainImg] = useState(game.game_display_img);
 
   return (
     <Link to={`/detail/${game.game_id}`} className='home-new-release'>
     <p>NEW RELEASE</p>
     <div className='home-mobile'>
-    {/* <div className='home-new-release-img' style={{backgroundImage: `url(${data.newGame.game_display_img})`}}> */}
       <div className='home-new-release-img'>
         <img className='' src={game.game_display_img} alt="new release game img" />
         <button>Discover More</button>
@@ -35,11 +32,6 @@ export default function NewRelease({ game }) {
           <div className='new-imgs-one'>
             <img src={game.game_img_link[0]} alt="imgs" />
           </div>
-         
-          
-          {/* {data.newGame.game_img_link.map(img_link => (
-            <img src={img_link} key={img_link} alt="img links" />
-          ))} */}
         </div>
         <h2>Now Available</h2>
         {game.discount_percent !== 0 ? 

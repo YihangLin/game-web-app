@@ -1,14 +1,14 @@
-import './Home.css';
-
 import { useFetch } from '../../hooks/useFetch';
 import { Link } from 'react-router-dom';
+
+import './Home.css';
 import Loading from '../../components/Loading';
 import NewRelease from '../../components/NewRelease';
 import RecentlyUpdated from '../../components/RecentlyUpdated';
 import Card from '../../components/Card';
 
 export default function Home() {
-  const { data, isPending, error } = useFetch('http://localhost:5000/homepage');
+  const { data, isPending, error } = useFetch(`${process.env.REACT_APP_SERVER_URL}/homepage`);
 
   return (
     <div className='home-container'>

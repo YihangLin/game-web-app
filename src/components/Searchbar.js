@@ -3,11 +3,22 @@ import Search from '../assets/search.svg';
 
 import { useState } from 'react';
 
-export default function Searchbar() {
+import { useNavigate } from 'react-router';
+
+export default function Searchbar({ setSidebar }) {
   const [term, setTerm] = useState('');
+  let navigate = useNavigate();
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    navigate(`/search?q=${term}`);
+    setSidebar(false);
+    setTerm('');
+  }
 
   return (
-    <form className='searchbar'>
+    <form className='searchbar' onSubmit={handleSubmit}>
       <label>
         <input 
           type="text" 

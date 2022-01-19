@@ -3,8 +3,6 @@ import { useAuthContext } from './useAuthContext';
 import { useNavigate } from 'react-router';
 
 export const useLogin = () => {
-  // const [data, setData] = useState(null);
-  // const [redirect, setRedirect] = useState(null);
   const [isCancelled, setIsCancelled] = useState(false);
   const [error, setError] = useState(null);
   const [isPending, setIsPending] = useState(false);
@@ -17,7 +15,6 @@ export const useLogin = () => {
   const login = async (email, password) => {
     setError(null);
     setIsPending(true);
-    // dispatch({ type: 'IS_PENDING' });
 
     try {
       const user = {
@@ -25,7 +22,7 @@ export const useLogin = () => {
         password,
         cart
       }
-      const res = await fetch('http://localhost:5000/login', {
+      const res = await fetch(`${process.env.REACT_APP_SERVER_URL}/login`, {
         method: 'POST',
         credentials: 'include',
         headers: {
@@ -34,9 +31,6 @@ export const useLogin = () => {
         body: JSON.stringify(user),
         signal: controllerRef.signal
       },)
-
-      // console.log('RES: ', res.status);
-      // console.log('TYPE: ', typeof(res.status));
 
       if (!res.ok) {
         switch(res.status) {
@@ -59,14 +53,10 @@ export const useLogin = () => {
       if (!isCancelled) {
         setIsPending(false);
         setError(null);
-        // setRedirect(true);
         navigate(-1);
       }
 
-
     } catch (err) {
-      // console.log('LOGIN ERROR: ', err.message);
-
       if (err.name === 'AbortError') {
         console.log('the fetch was aborted.')
       } else {
@@ -79,7 +69,6 @@ export const useLogin = () => {
   }
 
   useEffect(() => {
-   
 
     return () => {
       setIsCancelled(true);

@@ -1,11 +1,6 @@
 .footer {
-  /* max-width: 80%;
-  margin: 0 auto; */
   background-color: var(--navDark);
   color: var(--textColor);
-  /* padding: 1; */
-  /* display: flex; */
-  /* justify-content: space-around; */
 }
 
 .footer-container {
@@ -19,8 +14,6 @@
 }
 
 .footer-container ul li:nth-child(2) {
-  /* padding: rem 0; */
-  /* margin: ; */
   margin: .5rem 0;
 }
 
