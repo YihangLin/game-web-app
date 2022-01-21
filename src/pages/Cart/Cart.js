@@ -107,6 +107,14 @@ export default function Cart() {
       {sessionError && <div className='error'>{sessionError}</div>}
 
       <Link to='/' className='cart-shopping'>Continue Shopping</Link>
+
+      <div className='hint'>
+        <p>For payment test, use card#: 4242 4242 4242 4242</p>
+        <p>Date: Any date in the future</p>
+        <p>CVC: Any number is ok</p>
+        <p>Name on Card: any names will work</p>
+        <p>Postal Code: any number</p>
+      </div>
     </div>
   )
 }
