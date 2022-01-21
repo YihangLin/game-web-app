@@ -1,4 +1,4 @@
-##[View Site!](https://game-ecommerce-a5e9b.web.app/)
+## [View Site!](https://game-ecommerce-a5e9b.web.app/)
 
 # About the App
 
