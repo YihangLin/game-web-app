@@ -1,10 +1,15 @@
-# Getting Started with Create React App
+## [View Site!](https://game-ecommerce-a5e9b.web.app/)
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# About the App
 
-## Available Scripts
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app), Express, PostgreSQL and Stripe.
 
-In the project directory, you can run:
+## What I did
+- made it responsive!
+- used localstorage to save guest cart items.
+- saved games and registered users info in PostgreSQL
+- used JWT for authentication and bcrypt to hash passwords
+- used Stripe to process payments
 
 ### `npm start`
 
