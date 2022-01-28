@@ -11,8 +11,8 @@ export default function Footer() {
         <div>
           <ul>
             <li><Link to='/'>Home</Link></li>
-            <li><Link to='/'>Games</Link></li>
-            <li><Link to='/'>Sale</Link></li>
+            <li><Link to='/games/allgames'>Games</Link></li>
+            <li><Link to='/games/sales'>Sale</Link></li>
           </ul>
         </div>
 
