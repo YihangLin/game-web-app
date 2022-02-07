@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { loginUser } from '../../redux/reducers/userReducer';
+import { setAuthError } from '../../redux/actions/userActions';
 
 export default function Login() {
   const [email, setEmail] = useState('');
@@ -18,11 +19,13 @@ export default function Login() {
   }
 
   useEffect(() => {
+    // reset error state
+    dispatch(setAuthError(null));
     // redirect if user is logged in
     if (user) {
       navigate(-1);
     }
-  }, [user, navigate])
+  }, [user, navigate, dispatch])
 
   return (
     <div className='form-section'>

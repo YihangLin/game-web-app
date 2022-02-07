@@ -4,7 +4,7 @@ import { useCheckout } from '../../hooks/useCheckout';
 import { Link } from 'react-router-dom';
 
 import { useSelector, useDispatch } from 'react-redux';
-import { updateCart } from '../../redux/actions/cartActions';
+import { updateCart, setCartError } from '../../redux/actions/cartActions';
 import { updateCartAPI } from '../../redux/reducers/cartReducer';
 
 import './Cart.css';
@@ -49,6 +49,9 @@ export default function Cart() {
   }
 
   useEffect(() => {
+    // reset cart error
+    dispatch(setCartError(null));
+
     if (data) {
       setCartDetail(data.games);
       //calculate the total price
@@ -63,7 +66,7 @@ export default function Cart() {
       setTotal(sum);
     } 
 
-  }, [data])
+  }, [data, dispatch])
 
 
 
