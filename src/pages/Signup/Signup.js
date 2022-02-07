@@ -4,7 +4,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { signupUser } from '../../redux/reducers/userReducer';
-
+import { setAuthError } from '../../redux/actions/userActions';
 
 export default function Signup() {
   const [name, setName] = useState('');
@@ -28,11 +28,14 @@ export default function Signup() {
   }
 
   useEffect(() => {
+    // reset error state
+    dispatch(setAuthError(null));
+
     // redirect if user has logged in
     if (user) {
       navigate(-1);
     }
-  }, [user, navigate])
+  }, [user, navigate, dispatch])
 
   return (
     <div className='form-section'>

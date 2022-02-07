@@ -8,8 +8,7 @@ import { useParams } from 'react-router';
 import { Link, useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { updateCartAPI } from '../../redux/reducers/cartReducer';
-import { updateCart } from '../../redux/actions/cartActions';
-
+import { updateCart, setCartError } from '../../redux/actions/cartActions';
 
 export default function Detail() {
   const { gameid } = useParams();
@@ -27,10 +26,13 @@ export default function Detail() {
   const dispatch = useDispatch();
 
   useEffect(() => {
+    // reset cart error state
+    dispatch(setCartError(null));
+
     if (data !== null) {
       setMainImg(data.game_img_link[0]);
     }
-  }, [data])
+  }, [data, dispatch])
 
   useLayoutEffect(() => {
     if (data !== null) {
