@@ -1,9 +1,9 @@
-import { useAuthContext } from "./useAuthContext";
 import { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router";
+import { useSelector } from "react-redux";
 
 export const useCheckout = () => {
-  const { cart } = useAuthContext();
+  const { cart } = useSelector((state) => state.cartReducer);
   const [isCancelled, setIsCancelled] = useState(false);
   const [sessionError, setSessionError] = useState(null);
   const [sessionIsPending, setSessionIsPending] = useState(false);

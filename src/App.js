@@ -14,24 +14,31 @@ import Failure from './pages/Failure/Failure';
 import Loading from './components/Loading';
 import NotFound from './pages/NotFound/NotFound';
 import OrderHistory from './pages/OrderHistory/OrderHistory';
-import { useAuthContext } from './hooks/useAuthContext';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { initialGetUser } from './redux/reducers/userReducer';
 
 function App() {
-  const { authIsReady, user, error, isPending } = useAuthContext();
+  const { authIsReady, user, initialError } = useSelector((state) => state.userReducer);
   const [sidebar, setSidebar] = useState(false);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    console.log('first rendering to get user');
+    dispatch(initialGetUser());
+  }, [dispatch])
 
   return (
     <div className={`App ${sidebar ? 'disable-scroll' : ''}`}>
-      {isPending && <Loading />}
-      {error && <div className='error'>{error}</div>}
+      {!authIsReady && <Loading />}
+      {initialError && <div className='error'>{initialError}</div>}
       {authIsReady && (
         <BrowserRouter>
           <Navbar sidebar={sidebar} setSidebar={setSidebar} />
           <Routes>
             <Route path='/' element={ <Home /> } />
-            <Route path='/login' element={ user ? <Home /> : <Login />} />
-            <Route path='/signup' element={ user ? <Home /> : <Signup />} />
+            <Route path='/login' element={ <Login />} />
+            <Route path='/signup' element={ <Signup />} />
             <Route path='/cart' element={<Cart />} />
             <Route path='/detail/:gameid' element={ <Detail /> } />
             <Route path='/games/:category' element={ <Games /> } />
