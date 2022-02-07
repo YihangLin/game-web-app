@@ -45,7 +45,7 @@ const requireAuth = (req, res, next) => {
     jwt.verify(token, mySecret, (error, decodedToken) => {
       if (error) {
         console.log(error.message);
-        return res.status(403).json(error)
+        return res.status(403).json(error.message)
       } else {
         req.user_id = decodedToken.id;
         next();
@@ -84,7 +84,7 @@ app.get('/homepage', updateDiscount, async (req, res) => {
 
   } catch (err) {
     console.error('Homepage game data error', err.message);
-    res.status(400).json(err);
+    res.status(400).json(err.message);
   }
 })
 
@@ -99,7 +99,7 @@ app.get('/games/:id', updateDiscount, async (req, res) => {
     res.json(result.rows[0]);
   } catch (err) {
     console.error('Error retrieving game detail: ', err.message);
-    res.status(400).json(err);
+    res.status(400).json(err.message);
   }
 })
 
@@ -126,7 +126,7 @@ app.get('/category/:category', updateDiscount, async (req, res) => {
     }
   } catch (err) {
     console.error('Error retrieving games in category: ', err.message);
-    res.status(400).json(err);
+    res.status(400).json(err.message);
   }
 })
 
@@ -139,7 +139,7 @@ app.post('/signup', async (req, res) => {
     );
 
     if (result.rows[0].exists) {
-      return res.status(409).end();
+      return res.status(409).json('Email has been registered.');
     }
 
     const salt = await bcrypt.genSalt();
@@ -150,7 +150,7 @@ app.post('/signup', async (req, res) => {
     );
 
     if (!register_user_result.rows[0]) {
-      return res.status(500).end;
+      return res.status(500).json('Database registration error.');
     }
 
     //update users cart if thare are games in cart
@@ -160,7 +160,7 @@ app.post('/signup', async (req, res) => {
       );
 
       if (!register_cart_result.rows[0]) {
-        return res.status(500).end;
+        return res.status(500).json('Database registration error.');
       }
 
       console.log('Cart created for user: ', name);
@@ -173,7 +173,7 @@ app.post('/signup', async (req, res) => {
       );
 
       if (!register_cart_result.rows[0]) {
-        return res.status(500).end();
+        return res.status(500).json('Database registration error.');
       }
 
       console.log('Cart created for user: ', name);
@@ -191,7 +191,7 @@ app.post('/signup', async (req, res) => {
     
   } catch (err) {
     console.log('Sign up Error: ', err.message);
-    res.status(400).json(err);
+    res.status(400).json(err.message);
   }
 })
 
@@ -204,7 +204,7 @@ app.post('/login', async (req, res) => {
     );
 
     if (!result_exist.rows[0].exists) {
-      return res.status(404).end();
+      return res.status(404).json('User not found.');
     }
 
     const result_user = await db.query(
@@ -212,13 +212,13 @@ app.post('/login', async (req, res) => {
     );
 
     if (!result_user.rows[0]) {
-      return res.status(500).end();
+      return res.status(500).json('Database: error retrieving data.');
     }
 
     const auth = await bcrypt.compare(password, result_user.rows[0].user_password);
 
     if (!auth) {
-      return res.status(401).end();
+      return res.status(401).json('Incorrect password or email.');
     }
 
     const token = createToken(result_user.rows[0].user_id);
@@ -231,7 +231,7 @@ app.post('/login', async (req, res) => {
       );
 
       if (!result_cart.rows[0]) {
-        return res.status(500).end();
+        return res.status(500).json('Database: error retrieving data.');
       }
 
       res.json({
@@ -247,7 +247,7 @@ app.post('/login', async (req, res) => {
       );
 
       if (!result_cart.rows[0]) {
-        return res.status(500).end();
+        return res.status(500).json('Database: error retrieving data.');
       }
 
       res.json({
@@ -261,7 +261,7 @@ app.post('/login', async (req, res) => {
 
   } catch (err) {
     console.log('Login Error: ', err.message);
-    res.status(400).json(err);
+    res.status(400).json(err.message);
   }
 
 })
@@ -286,7 +286,7 @@ app.get('/user', requireAuth, async (req, res) => {
 
   } catch (err) {
     console.log('Error gettting logged in user info', err.message);
-    res.status(404).json(err);
+    res.status(404).json(err.message);
   }
 
 })
@@ -309,7 +309,7 @@ app.post('/cart', updateDiscount, async (req, res) => {
     );
 
     if (!result.rows) {
-      return res.status(404).end();
+      return res.status(404).json('Error retrieving games.');
     }
 
     res.json({
@@ -318,7 +318,7 @@ app.post('/cart', updateDiscount, async (req, res) => {
 
   } catch (err) {
     console.log('Retrieving game details in cart error: ', err.message);
-    res.status(400).json(err);
+    res.status(400).json(err.message);
   }
 })
 
@@ -333,7 +333,7 @@ app.put('/add', requireAuth, async (req, res) => {
     );
 
     if (!result.rows[0]) {
-      return res.status(500).end();
+      return res.status(500).json('Database: error adding/removing data.');
     }
 
     res.json({
@@ -342,7 +342,7 @@ app.put('/add', requireAuth, async (req, res) => {
     })
   } catch (err) {
     console.log('Adding item to cart error: ', err.message);
-    res.status(400).json(err);
+    res.status(400).json(err.message);
   }
 })
 
@@ -357,7 +357,7 @@ app.put('/remove', requireAuth, async (req, res) => {
     );
 
     if (!result.rows[0]) {
-      return res.status(500).end();
+      return res.status(500).json('Database: error adding/removing data.');
     }
 
     console.log('DELETE game from cart');
@@ -370,7 +370,7 @@ app.put('/remove', requireAuth, async (req, res) => {
 
   } catch (err) {
     console.log('Removing item from cart error: ', err.message);
-    res.status(400).json(err);
+    res.status(400).json(err.message);
   }
 })
 
@@ -388,7 +388,7 @@ app.get('/search', updateDiscount, async (req, res) => {
 
   } catch (err) {
     console.log('Search error', err.message);
-    res.status(400).json(err);
+    res.status(400).json(err.message);
   }
 })
 
@@ -432,7 +432,7 @@ app.post('/checkout', requireAuth, async (req, res) => {
 
   } catch (err) {
     console.log('Check out error: ', err.message);
-    res.status(500).json(err);
+    res.status(500).json(err.message);
   }
 })
 
@@ -473,7 +473,7 @@ app.get('/success', async (req, res) => {
       res.json('Thank you for your order! Visit your account order history for more info.');
     } catch (err) {
       console.log('Retrieve checkout session error: ', err.message);
-      res.status(500).json(err);
+      res.status(500).json(err.message);
     }
   } else {
     res.status(400).json('No session ID');
@@ -495,7 +495,7 @@ app.get('/orders', requireAuth, async (req, res) => {
 
   } catch (err) {
     console.log('Retrieve orders error: ', err.message);
-    res.status(500).json(err);
+    res.status(500).json(err.message);
   }
 })
 
