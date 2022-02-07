@@ -6,8 +6,10 @@ import { useState, useEffect, useLayoutEffect, createRef } from 'react';
 import { useFetch } from '../../hooks/useFetch';
 import { useParams } from 'react-router';
 import { Link, useNavigate } from 'react-router-dom';
-import { useAddRemoveCart } from '../../hooks/useAddRemoveCart';
-import { useAuthContext } from '../../hooks/useAuthContext';
+import { useSelector, useDispatch } from 'react-redux';
+import { updateCartAPI } from '../../redux/reducers/cartReducer';
+import { updateCart } from '../../redux/actions/cartActions';
+
 
 export default function Detail() {
   const { gameid } = useParams();
@@ -16,11 +18,13 @@ export default function Detail() {
   const [playVideo, setPlayVideo] = useState(true);
   const [descriptionLimit, setDescriptionLimit] = useState(true);
   const [requirmentsLimit, setRequirmentsLimit] = useState(true);
-  const { addToCart } = useAddRemoveCart();
-  const { cart } = useAuthContext();
   const descriptionRef = createRef();
   const requirmentsRef = createRef();
   let navigate = useNavigate();
+
+  const { cart, cartIsPending, cartError } = useSelector((state) => state.cartReducer);
+  const { user } = useSelector((state) => state.userReducer);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     if (data !== null) {
@@ -44,6 +48,22 @@ export default function Detail() {
   const handleImg = (gameimg) => {
     setPlayVideo(false);
     setMainImg(gameimg);
+  }
+
+  const handleAddToCart = (game) => {
+    // if user is logged, update cart in database
+    if (user) {
+      dispatch(updateCartAPI('add', game));
+      
+    } else {
+      // for guest, update cart in localstorage
+      let currentItems = JSON.parse(localStorage.getItem('cart'));
+      currentItems.push(game);
+
+      localStorage.setItem('cart', JSON.stringify(currentItems));
+      
+      dispatch(updateCart(currentItems));
+    }
   }
 
   return (
@@ -98,7 +118,10 @@ export default function Detail() {
                   {cart.includes(data.game_id) ?
                     <button className='game-detail-btn' onClick={()=> navigate('/cart')}>In Cart</button>
                   :
-                    <button className='game-detail-btn' onClick={()=> addToCart(data.game_id)}>Add to Cart</button>
+                  <>
+                    {cartIsPending && <button className='game-detail-btn' disabled>Loading</button>}
+                    {!cartIsPending && <button className='game-detail-btn' onClick={()=> handleAddToCart(data.game_id)}>Add to Cart</button>}
+                  </>
                   }
                 </div>
               :
@@ -114,16 +137,20 @@ export default function Detail() {
                     {cart.includes(data.game_id) ?
                       <button className='game-detail-btn' onClick={()=> navigate('/cart')}>In Cart</button>
                     :
-                      <button className='game-detail-btn' onClick={()=> addToCart(data.game_id)}>Add to Cart</button>
+                      <>
+                        {cartIsPending && <button className='game-detail-btn' disabled>Loading</button>}
+                        {!cartIsPending && <button className='game-detail-btn' onClick={()=> handleAddToCart(data.game_id)}>Add to Cart</button>}
+                      </>
                     }
                     </div>
                   </div>
                 </div>
               }
+              {cartError && <div className='error'>{cartError}</div>}
             </div>
           </div>
         </div>
-       
+
         <div className='game-description-requirments'>
           <h3 className='game-detail-section-h3'>ABOUT THIS GAME</h3>
           <p ref={descriptionRef} className={`game-description ${descriptionLimit ? 'text-limit' : ''}`}>{data.game_description}</p>
@@ -131,8 +158,8 @@ export default function Detail() {
         </div>
 
         <div className='game-description-requirments'>
-         <h3 className='game-detail-section-h3'> SYSTEM REQUIREMENTS</h3>
-         <div ref={requirmentsRef} className={`requirments ${requirmentsLimit ? 'text-limit' : ''}`}>
+        <h3 className='game-detail-section-h3'> SYSTEM REQUIREMENTS</h3>
+        <div ref={requirmentsRef} className={`requirments ${requirmentsLimit ? 'text-limit' : ''}`}>
           <div>
             <p>MINIMUM:</p>
             <p>OS: {data.min_requirement_os}</p>
@@ -152,8 +179,8 @@ export default function Detail() {
             <p>DirectX: {data.rec_requirement_directx}</p>
             <p>Storage: {data.rec_requirement_storage}</p>
           </div>
-         </div>
-         {requirmentsLimit && <p onClick={() => setRequirmentsLimit(false)} className='read-more'>READ MORE</p>}
+        </div>
+        {requirmentsLimit && <p onClick={() => setRequirmentsLimit(false)} className='read-more'>READ MORE</p>}
         </div>
       </div>}
     </div>

@@ -1,18 +1,28 @@
 import './Login.css';
-import { useState } from 'react';
-import { Link } from 'react-router-dom';
-import { useLogin } from '../../hooks/useLogin';
+import { useState, useEffect } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
+import { loginUser } from '../../redux/reducers/userReducer';
 
 export default function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const { isPending, error, login } = useLogin();
+  const dispatch = useDispatch();
+  const { authError, authIsPending, user } = useSelector((state) => state.userReducer);
+  const navigate = useNavigate();
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    login(email, password);
+    dispatch(loginUser(email, password));
   }
+
+  useEffect(() => {
+    // redirect if user is logged in
+    if (user) {
+      navigate(-1);
+    }
+  }, [user, navigate])
 
   return (
     <div className='form-section'>
@@ -36,14 +46,14 @@ export default function Login() {
             value={password}
           />
         </label>
-        {!isPending && <button>Login</button>}
-        {isPending && <button disabled>Loading</button>}
+        {!authIsPending && <button>Login</button>}
+        {authIsPending && <button disabled>Loading</button>}
         <Link to='/signup'>
           <span>Don't have an account?</span>
           Sign Up Here!
         </Link>
 
-        {error && <div className='error'>{error}</div>}
+        {authError && <div className='error'>{authError}</div>}
       </form>
     </div>
   )

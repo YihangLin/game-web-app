@@ -1,8 +1,10 @@
 import '../Login/Login.css';
 
-import { Link } from 'react-router-dom';
-import { useState } from 'react';
-import { useSignup } from '../../hooks/useSignup';
+import { Link, useNavigate } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { signupUser } from '../../redux/reducers/userReducer';
+
 
 export default function Signup() {
   const [name, setName] = useState('');
@@ -10,7 +12,9 @@ export default function Signup() {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [passwordError, setPasswordError] = useState(null);
-  const { isPending, error, signup } = useSignup();
+  const navigate = useNavigate();
+  const { authIsPending, authError, user } = useSelector((state) => state.userReducer);
+  const dispatch = useDispatch();
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -19,9 +23,16 @@ export default function Signup() {
     if (password !== confirmPassword) {
       setPasswordError('Password and Confirm Password does not match.')
     } else {
-      signup(email, password, name);
+      dispatch(signupUser(email, password, name));
     }
   }
+
+  useEffect(() => {
+    // redirect if user has logged in
+    if (user) {
+      navigate(-1);
+    }
+  }, [user, navigate])
 
   return (
     <div className='form-section'>
@@ -73,14 +84,14 @@ export default function Signup() {
           />
         </label>
 
-        {!isPending && <button>Sign Up</button>}
-        {isPending && <button disabled>Loading</button>}
+        {!authIsPending && <button>Sign Up</button>}
+        {authIsPending && <button disabled>Loading</button>}
         <Link to='/login'>
           <span>Already have an account?</span>
           Login Here!
         </Link>
 
-      {error && <div className='error'>{error}</div>}
+      {authError && <div className='error'>{authError}</div>}
       {passwordError && <div className='error'>{passwordError}</div>}
       </form>
     </div>

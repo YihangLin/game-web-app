@@ -12,13 +12,14 @@ import Dropdown from './Dropdown';
 
 import { Link } from 'react-router-dom';
 import { useState } from 'react';
-import { useAuthContext } from '../hooks/useAuthContext';
-import { useLogout } from '../hooks/useLogout';
+import { useSelector, useDispatch } from 'react-redux';
+import { logoutUser } from '../redux/reducers/userReducer';
 
 export default function Navbar({ sidebar, setSidebar }) {
   const [dropdown, setDropdown] = useState(false);
-  const { cart, user } = useAuthContext();
-  const { isPending, logout } = useLogout();
+  const { cart } = useSelector((state) => state.cartReducer);
+  const { user, authIsPending } = useSelector((state) => state.userReducer);
+  const dispatch = useDispatch();
 
   return (
     <>
@@ -29,7 +30,7 @@ export default function Navbar({ sidebar, setSidebar }) {
           <Link to='/' className='mobile-logo' onClick={() => setSidebar(false)}><img src={Logo} alt="logo img" /></Link>
           <Link className='mobile-badge' to ='/cart' onClick={() => setSidebar(false)}>
             <img src={ShoppingBag} alt="shopping bag img" />
-           <span>{cart.length}</span>
+            <span>{cart.length}</span>
           </Link>
         </div>
         <div className='mobile-nav' onClick={() => setSidebar(false)}>
@@ -59,13 +60,13 @@ export default function Navbar({ sidebar, setSidebar }) {
               <p>View Cart({cart.length})</p>
             </Link>
             {user ?
-              isPending ? 
+              authIsPending ? 
                 <div className='show-vertical mobile-sidebar-logout'>
                   <img src={Logout} alt="logout img" />
                   <p>Loading</p>
                 </div>
               :
-                <div className='show-vertical mobile-sidebar-logout' onClick={() => logout()}>
+                <div className='show-vertical mobile-sidebar-logout' onClick={() => dispatch(logoutUser())}>
                   <img src={Logout} alt="logout img" />
                   <p>Logout</p>
                 </div>
@@ -104,13 +105,13 @@ export default function Navbar({ sidebar, setSidebar }) {
                     <div className='desktop-account-forhover'><img src={Account} alt="account img" />
                       <div className='desktop-account-hover'>
                         <a href='/orders'>View Orders</a>
-                        {isPending ?
+                        {authIsPending ?
                           <div className='desktop-logout'>
                             <img src={Logout} alt="logout img" />
                             <span>Loading</span>
                           </div>
                         :
-                          <div className='desktop-logout' onClick={()=> logout()}>
+                          <div className='desktop-logout' onClick={()=> dispatch(logoutUser())}>
                             <img src={Logout} alt="logout img" />
                             <span>Logout</span>
                           </div>
