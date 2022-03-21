@@ -98,7 +98,7 @@ export default function Cart() {
                   <span>CDN {(game.game_price / 100).toLocaleString('en-CA', { style: 'currency', currency: 'CAD', minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span>
                   <p>CDN {(game.game_price * (100 - game.discount_percent) / 10000).toLocaleString('en-CA', { style: 'currency', currency: 'CAD', minimumFractionDigits: 2, maximumFractionDigits: 2 })}</p>
                   {cartIsPending && <p className='cart-remove'>Loading</p>}
-                  {!cartIsPending && <p className='cart-remove' onClick={()=> handleRemoveFromCart(game.game_id)}>Remove</p>}
+                  {!cartIsPending && <p className='cart-remove' onClick={()=> handleRemoveFromCart(game)}>Remove</p>}
                 </div>
               }
             </div>
