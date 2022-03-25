@@ -12,25 +12,25 @@ It is a website for shopping games online. I built this project to exercise my p
 - Redux
 
 ## Visuals
-Main page for mobile devices
+Main page for mobile devices  
 ![mobile main page](/readMeImgs/mobile-game.png)
 
-Sidebar for mobile devices
+Sidebar for mobile devices  
 ![mobiel sidebar](/readMeImgs/mobile-sidebar-game.png)
 
-Detail page for mobile devices
+Detail page for mobile devices  
 ![mobile detail](/readMeImgs//mobile-detail-game.png)
 
-Detail page for desktop
+Detail page for desktop  
 ![desktop detail](/readMeImgs/detail-game.png)
 
-Login page
+Login page  
 ![desktop main](/readMeImgs/login-game.png)
 
-Desktop page for cart
+Desktop page for cart  
 ![desktop cart](/readMeImgs/cart-game.png)
 
-Checkout page
+Checkout page  
 ![checkout](/readMeImgs/checkout-game.png)
 
 
